@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ProdukController extends Controller
 {
@@ -27,6 +28,9 @@ class ProdukController extends Controller
         return datatables()
         ->of($produk)
         ->addIndexColumn()
+        ->addColumn('select_all', function($produk){
+            return '<input type="checkbox" name="id_produk[]" value="'.$produk->id_produk.'">';
+        })
         ->addColumn('kode_produk', function($produk){
             return '<span class="label label-success">'.$produk->kode_produk.'</span>';
         })
@@ -41,7 +45,7 @@ class ProdukController extends Controller
         })
         ->addColumn('aksi', function ($produk){
                 return '<button onclick="editForm(`'. route('produk.update', $produk->id_produk) .'`)" class="btn btn-info btn-flat"><i class="fa fa-edit"></i></button> <button onclick="deleteData(`'.route('produk.destroy', $produk->id_produk).'`)" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>';
-            })->rawColumns(['aksi', 'kode_produk'])->make(true);
+            })->rawColumns(['aksi', 'kode_produk', 'select_all'])->make(true);
     }
     /**
      * Show the form for creating a new resource.
@@ -103,5 +107,29 @@ class ProdukController extends Controller
         $produk->delete();
 
         return response()->json('null', 204);
+    }
+
+    public function deleteSelected(Request $request) 
+    {
+        foreach ($request->id_produk as $id) {
+           $produk = Produk::find($id);
+           $produk->delete();
+        }
+
+        return response(null, 204);
+    }
+
+    public function cetakBarcode(Request $request)
+    {
+        $dataproduk = array();
+        foreach($request->id_produk as $id){
+            $produk = Produk::find($id);
+            $dataproduk[] = $produk;
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('produk.barcode', compact('dataproduk'));
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('produk.pdf');
+
     }
 }

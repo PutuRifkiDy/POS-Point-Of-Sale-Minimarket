@@ -16,13 +16,13 @@
             <div class="box">
                 <div class="box-header with-border">
                     <button onclick="addForm('{{ route('kategori.store') }}')"
-                        class="btn btn-success xs btn-flat tw-flex tw-gap-2 tw-justify-center tw-items-center">
+                        class="btn btn-success xs btn-flat flex gap-10 justify-center items-center">
                         <i class="fa fa-plus-circle"></i>
                         Tambah
                     </button>
                 </div>
                 <div class="box-body table-rensponsive">
-                    <table class="table table-stiped table-bordered tw-text-2xl">
+                    <table class="table table-stiped table-bordered text-2xl">
                         <thead>
                             <th width="5%">No</th>
                             <th>Kategori</th>

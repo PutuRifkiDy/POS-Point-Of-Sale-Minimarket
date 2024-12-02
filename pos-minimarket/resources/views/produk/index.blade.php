@@ -12,33 +12,49 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12 w-full">
+        <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
                     <button onclick="addForm('{{ route('produk.store') }}')"
-                        class="btn btn-success xs btn-flat tw-flex tw-gap-2 tw-justify-center tw-items-center">
+                        class="btn btn-success xs btn-flat">
                         <i class="fa fa-plus-circle"></i>
                         Tambah
                     </button>
+                    <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')"
+                        class="btn btn-danger xs btn-flat">
+                        <i class="fa fa-trash"></i>
+                        Hapus
+                    </button>
+                    <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')"
+                        class="btn btn-info xs btn-flat">
+                        <i class="fa fa-barcode"></i>
+                        Cetak Barcode
+                    </button>
                 </div>
                 <div class="box-body table-rensponsive">
-                    <table class="table table-stiped table-bordered tw-text-2xl">
-                        <thead>
-                            <th width="5%">No</th>
-                            <th>Kode</th>
-                            <th>Nama Produk</th>
-                            <th>Kategori</th>
-                            <th>Merk</th>
-                            <th>Harga Beli</th>
-                            <th>Harga Jual</th>
-                            <th>Diskon</th>
-                            <th>Stok</th>
-                            <th width="15%"><i class="fa fa-cog"></i></th>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                    <form action="" method="post" class="form-produk">
+                        @csrf
+                        <table class="table table-stiped table-bordered tw-text-2xl">
+                            <thead>
+                                <th>
+                                    <input type="checkbox" name="select_all" id="select_all">
+                                </th>
+                                <th width="5%">No</th>
+                                <th>Kode</th>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Merk</th>
+                                <th>Harga Beli</th>
+                                <th>Harga Jual</th>
+                                <th>Diskon</th>
+                                <th>Stok</th>
+                                <th width="15%"><i class="fa fa-cog"></i></th>
+                            </thead>
+                            <tbody>
+    
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
 
             </div>
@@ -57,7 +73,11 @@
                 ajax: {
                     url: '{{ route('produk.data') }}',
                 },
-                columns: [{
+                columns: [
+                    {
+                        data: 'select_all'
+                    },
+                    {
                         data: 'DT_RowIndex',
                         searchable: false,
                         sortable: false
@@ -128,6 +148,10 @@
                             return;
                         });
                 }
+            });
+
+            $('[name=select_all]').on('click', function(){
+                $(':checkbox').prop('checked', this.checked);
             });
         });
 
@@ -209,6 +233,81 @@
             }
         });
     }
+
+    function deleteSelected(url) {
+    // Menampilkan SweetAlert2 konfirmasi sebelum menghapus data terpilih
+        if ($('input:checked').length > 0) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Semua data yang dipilih akan dihapus dan tidak bisa dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kirim request untuk menghapus data yang dipilih menggunakan AJAX
+                    $.post(url, $('.form-produk').serialize())
+                    .done((response) => {
+                        // Reload tabel setelah berhasil menghapus
+                        table.ajax.reload();
+                        // Tampilkan notifikasi sukses
+                        Swal.fire(
+                            'Terhapus!',
+                            'Data yang dipilih telah berhasil dihapus.',
+                            'success'
+                        );
+                    })
+                    .fail((errors) => {
+                        // Jika gagal, tampilkan pesan error
+                        Swal.fire(
+                            'Gagal!',
+                            'Data gagal dihapus.',
+                            'error'
+                        );
+                    });
+                }
+            });
+        } else {
+            // Jika tidak ada data yang dipilih
+            Swal.fire(
+                'Pilih Data!',
+                'Pilih Data yang Ingin Dihapus.',
+                'error'
+            );
+            return;
+        }
+    }
+    function cetakBarcode(url) {
+    // Cek apakah minimal 3 data terpilih
+    if ($('input:checked').length < 3) {
+        Swal.fire(
+            'Pilih Minimal 3 Data!',
+            'Pilih minimal 3 data untuk dicetak!',
+            'warning'
+        );
+        return;
+    } else {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Semua data yang dipilih akan dicetak barcodenya!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Cetak',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika user konfirmasi, kirim form untuk mencetak barcode
+                $('.form-produk').attr('action', url)
+                                  .attr('target', '_blank')  // Form akan dibuka di tab baru
+                                  .submit();  // Kirim form
+            }
+        });
+    }
+}
+
 
     </script>
 @endpush

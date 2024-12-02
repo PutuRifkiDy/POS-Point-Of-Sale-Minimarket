@@ -44,12 +44,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   
-  {{-- @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Laravel Mix/Vite --> --}}
-  
   <!-- Google Font -->
   <link rel="stylesheet"
   href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic') }}">
-  @vite('resources/css/app.css')
+  
+  @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Laravel Mix/Vite -->
+  @vite('resources/js/app.js')
 </head>
 
 <body class="hold-transition skin-green-light sidebar-mini fixed wysihtml5-supported">
@@ -144,7 +144,6 @@
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js"></script>
     
-    @vite('resources/js/app.js')
     @stack('scripts')
 </body>
 

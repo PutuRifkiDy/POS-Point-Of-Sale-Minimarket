@@ -9,7 +9,7 @@
                     <img src="{{asset('img/logoToko.png')}}" width="200px" height="200px">
                 </a>
             </div>
-            <p class="login-box-msg text-[24px] font-bold text-red">Kita Mart</p>
+            <h1 class="login-box-msg tw-text-3xl text-red">Kita Mart</h1>
 
             <form action="{{route('login')}}" method="post">
                 @csrf

@@ -33,6 +33,6 @@ export default {
         'dataTable', 'paginate_button', 'dataTables_length', 'dataTables_filter', 'dataTables_info',
     ],
 
-    // Menggunakan namespace untuk kelas Tailwind CSS
-    prefix: 'tw-',  // Menggunakan prefix 'tw-' untuk semua kelas Tailwind
+    // // Menggunakan namespace untuk kelas Tailwind CSS
+    // prefix: 'tw-',  // Menggunakan prefix 'tw-' untuk semua kelas Tailwind
 };
