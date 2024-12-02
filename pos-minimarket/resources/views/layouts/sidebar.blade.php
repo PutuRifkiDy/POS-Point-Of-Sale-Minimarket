@@ -20,13 +20,13 @@
             </li>
             <li class="header">MASTER</li>
             <li>
-                <a href="#">
+                <a href="{{route('kategori.index')}}">
                     <i class="fa fa-cube"></i> <span>Kategori</span>
 
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{route('produk.index')}}">
                     <i class="fa fa-cubes"></i> <span>Produk</span>
 
                 </a>

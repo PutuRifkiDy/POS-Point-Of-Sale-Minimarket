@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{config('app.name')}} | @yield('title')</title>
+    <title>{{ config('app.name') }} | @yield('title')</title>
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -30,6 +31,11 @@
         href="{{ asset('AdminLTE-2/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+    <link rel="stylesheet" href="{{asset('AdminLTE-2/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+    <!-- SweetAlert2 CSS -->
+    <link href="{https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.min.css}" rel="stylesheet">
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,21 +43,22 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
-    {{-- @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Laravel Mix/Vite --> --}}
-
-    <!-- Google Font -->
-    <link rel="stylesheet"
-        href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic') }}">
+  
+  {{-- @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Laravel Mix/Vite --> --}}
+  
+  <!-- Google Font -->
+  <link rel="stylesheet"
+  href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic') }}">
+  @vite('resources/css/app.css')
 </head>
 
 <body class="hold-transition skin-green-light sidebar-mini fixed wysihtml5-supported">
     <div class="wrapper">
-
+        
         @includeIf('layouts.header')
-        <!-- Left side column. contains the logo and sidebar -->
         @includeIf('layouts.sidebar')
-
+        <!-- Left side column. contains the logo and sidebar -->
+        
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -61,30 +68,30 @@
                 </h1>
                 <ol class="breadcrumb">
                     @section('breadcrumb')
-                        <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>    
+                    <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Home</a></li>
                     @show
                     
                 </ol>
             </section>
-
+            
             <!-- Main content -->
             <section class="content">
                 <!-- Small boxes (Stat box) -->
                 @yield('content')
                 <!-- /.row -->
-
+                
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
+        
         {{-- footer --}}
         @includeIf('layouts.footer')
-
+        
         <!-- Control Sidebar -->
     </div>
     <!-- ./wrapper -->
-
+    
     <!-- jQuery 3 -->
     <script src="{{ asset('AdminLTE-2/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -92,7 +99,7 @@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button);
-    </script>
+        </script>
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('AdminLTE-2/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- Morris.js charts -->
@@ -119,12 +126,26 @@
     <script src="{{ asset('AdminLTE-2/bower_components/fastclick/lib/fastclick.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('AdminLTE-2/dist/js/adminlte.min.js') }}"></script>
-
-    <script src="{{asset('AdminLTE-2/bower_components/chart.js/Chart.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{asset('AdminLTE-2/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('AdminLTE-2/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    
+    <script src="{{ asset('AdminLTE-2/bower_components/chart.js/Chart.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{asset('AdminLTE-2/dist/js/pages/dashboard2.js')}}"></script>
+    <script src="{{ asset('AdminLTE-2/dist/js/pages/dashboard2.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{asset('AdminLTE-2/dist/js/demo.js')}}"></script>
+    <script src="{{ asset('AdminLTE-2/dist/js/demo.js') }}"></script>
+    <!-- Validator -->
+    <script src="{{asset('/js/validator.min.js')}}"></script>
+    <!-- Notyf CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/notyf@3.5.0/notyf.min.css" rel="stylesheet">
+    <!-- Notyf JS -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3.5.0/notyf.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.all.min.js"></script>
+    
+    @vite('resources/js/app.js')
+    @stack('scripts')
 </body>
 
 </html>

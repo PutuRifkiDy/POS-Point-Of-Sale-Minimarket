@@ -19,5 +19,20 @@ export default {
         },
     },
 
-    plugins: [forms, typography],
+    corePlugins: {
+        preflight: false,  // Nonaktifkan preflight agar tidak menimpa gaya adminLTE
+    },
+
+    plugins: [
+        forms,
+        typography,
+    ],
+
+    // Menambahkan namespace agar kelas Tailwind tidak bercampur dengan AdminLTE
+    safelist: [
+        'dataTable', 'paginate_button', 'dataTables_length', 'dataTables_filter', 'dataTables_info',
+    ],
+
+    // Menggunakan namespace untuk kelas Tailwind CSS
+    prefix: 'tw-',  // Menggunakan prefix 'tw-' untuk semua kelas Tailwind
 };
