@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE-2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
     <link rel="stylesheet" href="{{asset('AdminLTE-2/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
     <!-- SweetAlert2 CSS -->
-    <link href="{https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.min.css}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.24/dist/sweetalert2.min.css" rel="stylesheet">
 
 
 

@@ -28,9 +28,9 @@
     <!-- Google Font -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-        @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Laravel Mix/Vite -->
         
-
+        @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Laravel Mix/Vite -->
+        @vite('resources/js/app.js')
 </head>
 
 <body class="hold-transition login-page">
@@ -51,7 +51,6 @@
                 increaseArea: '20%' /* optional */
             });
         });
-        @vite('resources/js/app.js')
     </script>
 </body>
 

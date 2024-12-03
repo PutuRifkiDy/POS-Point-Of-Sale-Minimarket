@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
-use Barryvdh\DomPDF\Facade as PDF;
+
 
 class ProdukController extends Controller
 {
@@ -20,11 +20,10 @@ class ProdukController extends Controller
     }
 
     public function data(){
-        $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_produk')
+        $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', '=', 'produk.id_kategori')
         ->select('produk.*', 'nama_kategori')
-        ->orderBy('id_produk','desc')
         ->get();
-
+        
         return datatables()
         ->of($produk)
         ->addIndexColumn()
@@ -44,7 +43,7 @@ class ProdukController extends Controller
             return format_uang($produk->stok);
         })
         ->addColumn('aksi', function ($produk){
-                return '<button onclick="editForm(`'. route('produk.update', $produk->id_produk) .'`)" class="btn btn-info btn-flat"><i class="fa fa-edit"></i></button> <button onclick="deleteData(`'.route('produk.destroy', $produk->id_produk).'`)" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>';
+                return '<button type="button" onclick="editForm(`'. route('produk.update', $produk->id_produk) .'`)" class="btn btn-info btn-flat"><i class="fa fa-edit"></i></button> <button type="button" onclick="deleteData(`'.route('produk.destroy', $produk->id_produk).'`)" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['aksi', 'kode_produk', 'select_all'])->make(true);
     }
     /**
@@ -106,7 +105,7 @@ class ProdukController extends Controller
         $produk = Produk::find($id);
         $produk->delete();
 
-        return response()->json('null', 204);
+        return response()->json(null, 204);
     }
 
     public function deleteSelected(Request $request) 
@@ -127,9 +126,11 @@ class ProdukController extends Controller
             $dataproduk[] = $produk;
         }
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('produk.barcode', compact('dataproduk'));
+        $no = 1;
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('produk.barcode', compact('dataproduk', 'no'));
         $pdf->setPaper('a4', 'portrait');
         return $pdf->stream('produk.pdf');
 
     }
+    
 }

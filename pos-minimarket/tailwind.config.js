@@ -1,16 +1,16 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
-import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    corePlugins: {
+        preflight: false, // Nonaktifkan Preflight agar tidak mengganggu gaya AdminLTE
+    },
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
     theme: {
         extend: {
             fontFamily: {
@@ -18,21 +18,9 @@ export default {
             },
         },
     },
-
-    corePlugins: {
-        preflight: false,  // Nonaktifkan preflight agar tidak menimpa gaya adminLTE
-    },
-
     plugins: [
-        forms,
-        typography,
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
     ],
-
-    // Menambahkan namespace agar kelas Tailwind tidak bercampur dengan AdminLTE
-    safelist: [
-        'dataTable', 'paginate_button', 'dataTables_length', 'dataTables_filter', 'dataTables_info',
-    ],
-
-    // // Menggunakan namespace untuk kelas Tailwind CSS
-    // prefix: 'tw-',  // Menggunakan prefix 'tw-' untuk semua kelas Tailwind
+    prefix: 'tw-',  // Menambahkan prefix agar kelas Tailwind tidak berbenturan
 };
