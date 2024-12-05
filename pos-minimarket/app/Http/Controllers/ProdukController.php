@@ -31,7 +31,7 @@ class ProdukController extends Controller
             return '<input type="checkbox" name="id_produk[]" value="'.$produk->id_produk.'">';
         })
         ->addColumn('kode_produk', function($produk){
-            return '<span class="label label-success">'.$produk->kode_produk.'</span>';
+            return '<span class="label label-warning">'.$produk->kode_produk.'</span>';
         })
         ->addColumn('harga_beli', function($produk){
             return format_uang($produk->harga_beli);

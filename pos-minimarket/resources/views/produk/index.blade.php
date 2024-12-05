@@ -1,7 +1,7 @@
 @extends('layouts.master');
 
 @section('title')
-    Produk
+    Daftar Produk
 @endsection
 
 @section('breadcrumb')
@@ -73,7 +73,8 @@
                 ajax: {
                     url: '{{ route('produk.data') }}',
                 },
-                columns: [{
+                columns: [
+                    {
                         data: 'select_all',
                         searchable: false,
                         sortable: false
