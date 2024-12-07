@@ -29,7 +29,7 @@ class MemberController extends Controller
                 return '<span class="label label-warning">'.$member->kode_member.'</span>';
             })
             ->addColumn('aksi', function ($member){
-                return '<button onclick="editForm(`'. route('member.update', $member->id_member) .'`)" class="btn btn-info btn-flat"><i class="fa fa-edit"></i></button> <button onclick="deleteData(`'.route('member.destroy', $member->id_member).'`)" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>';
+                return '<button type="button" onclick="editForm(`'. route('member.update', $member->id_member) .'`)" class="btn btn-info btn-flat"><i class="fa fa-edit"></i></button> <button type="button" onclick="deleteData(`'.route('member.destroy', $member->id_member).'`)" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>';
             })
             ->rawColumns(['aksi', 'kode_member', 'select_all'])
             ->make(true);

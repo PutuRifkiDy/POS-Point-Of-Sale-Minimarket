@@ -14,30 +14,7 @@
     }
 }
 
-/* Mengatur ukuran SweetAlert2 modal */
-.swal2-popup {
-    width: 80% !important;  /* Atur lebar modal */
-    max-width: 600px !important;  /* Atur batas lebar maksimal */
-    padding: 20px !important;  /* Atur padding modal */
-    font-size: 16px !important;  /* Atur ukuran font */
-}
 
-/* Mengatur posisi SweetAlert2 */
-.swal2-container {
-    z-index: 999999 !important; /* Pastikan modal muncul di atas elemen lainnya */
-}
-
-
-/* Atur ukuran tombol SweetAlert2 */
-.swal2-actions button {
-    font-size: 16px !important;
-    padding: 10px 20px !important;
-}
-
-/* Mengatur z-index modal SweetAlert2 */
-.swal2-container {
-    z-index: 1050 !important;  /* Sesuaikan dengan kebutuhan */
-}
 
 
 

@@ -1,9 +1,11 @@
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+<div class="tw-min-h-screen tw-flex tw-items-center tw-justify-center tw-bg-gray-100">
     <div>
-        {{ $logo }}
-    </div>
-
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-        {{ $slot }}
+        <div>
+            {{ $logo }}
+        </div>
+    
+        <div class="tw-w-full tw-flex tw-flex-col tw-justify-center tw-items-center tw-max-w-md tw-px-8 tw-py-6 tw-bg-white tw-shadow-md tw-overflow-hidden tw-rounded-lg item">
+            {{ $slot }}
+        </div>
     </div>
 </div>

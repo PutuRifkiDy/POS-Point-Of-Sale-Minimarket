@@ -8,9 +8,13 @@
     <style>
         .box {
             position: relative;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px; /* Jarak antar kolom */
         }
         .card{
             width: 85.60mm;
+ 
         }
         .logo {
             position: absolute;
@@ -74,7 +78,7 @@
                 @foreach($data as $item)
                     <td class="text-center" width="50%">
                         <div class="box">
-                            <img src="{{public_path('img/member.png')}}" alt="card" class="card" width="50%">
+                            <img src="{{public_path('img/member.png')}}" alt="card" class="card">
                             <div class="logo">
                                 <p>{{config('app.name')}}</p>
                                 {{-- <img src="{{public_path('img/logoToko.png')}}" alt="logo" class="logo"> --}}
@@ -91,6 +95,9 @@
                         </div>
 
                     </td>
+                    @if(count($datamember) == 1)
+                    <tf class="text-center" style="width: 50%;"></tf>
+                    @endif
                 @endforeach
             </tr>
             @endforeach

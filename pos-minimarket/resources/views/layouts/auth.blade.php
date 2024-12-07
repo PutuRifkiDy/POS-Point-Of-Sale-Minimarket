@@ -34,7 +34,7 @@
 </head>
 
 <body class="hold-transition login-page">
-    @yield('login');
+    @yield('content');
     <!-- /.login-box -->
 
     <!-- jQuery 3 -->
