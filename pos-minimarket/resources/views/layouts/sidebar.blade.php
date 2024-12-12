@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{route('supplier.index')}}">
                     <i class="fa fa-truck"></i> <span>Supplier</span>
 
                 </a>
@@ -46,13 +46,13 @@
 
             <li class="header">TRANSAKSI</li>
             <li>
-                <a href="#">
+                <a href="{{route('pengeluaran.index')}}">
                     <i class="fa fa-money"></i> <span>Pengeluaran</span>
 
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{route('pembelian.index')}}">
                     <i class="fa fa-download"></i> <span>Pembelian</span>
 
                 </a>
@@ -96,6 +96,8 @@
                 </a>
             </li>
         </ul>
+
+        
     </section>
     <!-- /.sidebar -->
 </aside>

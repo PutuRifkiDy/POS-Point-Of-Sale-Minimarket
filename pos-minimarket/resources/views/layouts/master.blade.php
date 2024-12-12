@@ -51,6 +51,7 @@
   
   {{-- @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Laravel Mix/Vite --> --}}
   {{-- @vite('resources/js/app.js') --}}
+  @stack('css')
 </head>
 
 <body class="hold-transition skin-green-light sidebar-mini fixed wysihtml5-supported">

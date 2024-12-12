@@ -20,7 +20,7 @@ class KategoriController extends Controller
         $kategori = Kategori::orderBy('id_kategori', 'desc')->get();
 
         return datatables()->of($kategori)->addIndexColumn()->addColumn('aksi', function ($kategori){
-                return '<button onclick="editForm(`'. route('kategori.update', $kategori->id_kategori) .'`)" class="btn btn-info btn-flat"><i class="fa fa-edit"></i></button> <button onclick="deleteData(`'.route('kategori.destroy', $kategori->id_kategori).'`)" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>';
+                return '<button type="button" onclick="editForm(`'. route('kategori.update', $kategori->id_kategori) .'`)" class="btn btn-info btn-flat"><i class="fa fa-edit"></i></button> <button type="button" onclick="deleteData(`'.route('kategori.destroy', $kategori->id_kategori).'`)" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></button>';
             })->rawColumns(['aksi'])->make(true);
     }
     /**

@@ -96,7 +96,7 @@
 
                     </td>
                     @if(count($datamember) == 1)
-                    <tf class="text-center" style="width: 50%;"></tf>
+                    <td class="text-center" style="width: 50%;"></td>
                     @endif
                 @endforeach
             </tr>

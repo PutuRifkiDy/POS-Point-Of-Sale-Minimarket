@@ -29,7 +29,7 @@
                         Cetak Barcode
                     </button>
                 </div>
-                <div class="box-body table-rensponsive">
+                <div class="box-body table-responsive">
                     <form action="" method="post" class="form-produk">
                         @csrf
                         <table class="table table-striped table-bordered tw-text-2xl">

@@ -1,12 +1,12 @@
 @extends('layouts.master');
 
 @section('title')
-    Daftar Member
+   Daftar Pengeluaran
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Member</li>
+    <li class="active">Pengeluaran</li>
 @endsection
 
 
@@ -15,42 +15,31 @@
         <div class="col-md-12 w-full">
             <div class="box">
                 <div class="box-header with-border">
-                    <button onclick="addForm('{{ route('member.store') }}')"
+                    <button onclick="addForm('{{ route('pengeluaran.store') }}')"
                         class="btn btn-success xs btn-flat flex gap-10 justify-center items-center">
                         <i class="fa fa-plus-circle"></i>
                         Tambah
                     </button>
-                    <button onclick="cetakMember('{{route('member.cetak_member')}}')" class="btn btn-info xs btn-flat tw-flex tw-gap-10 tw-justify-center tw-items-center">
-                        <i class="fa fa-id-card"></i> 
-                        Cetak Kartu
-                    </button>
                 </div>
                 <div class="box-body table-responsive">
-                    <form action="" method="post" class="form-member">
-                        @csrf
-                        <table class="table table-stiped table-bordered text-2xl">
-                            <thead>
-                                <th>
-                                    <input type="checkbox" name="select_all" id="select_all">
-                                </th>
-                                <th width="5%">No</th>
-                                <th>Kode</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telepon</th>
-                                <th width="10%"><i class="fa fa-cog"></i></th>
-                            </thead>
-                            <tbody>
+                    <table class="table table-stiped table-bordered text-2xl">
+                        <thead>
+                            <th width="5%">No</th>
+                            <th>Tanggal</th>
+                            <th>Deskripsi</th>
+                            <th>Nominal</th>
+                            <th width="15%"><i class="fa fa-cog"></i></th>
+                        </thead>
+                        <tbody>
 
-                            </tbody>
-                        </table>
-                    </form>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
         </div>
     </div>
-    @includeIf('member.form')
+    @includeIf('pengeluaran.form')
 @endsection
 @push('scripts')
     <script>
@@ -61,30 +50,21 @@
                 processing: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('member.data') }}',
+                    url: '{{ route('pengeluaran.data') }}',
                 },
-                columns: [
-                    {
-                        data: 'select_all',
-                        searchable: false,
-                        sortable: false
-                    },
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         searchable: false,
                         sortable: false
                     },
                     {
-                        data: 'kode_member'
+                        data: 'created_at'
                     },
                     {
-                        data: 'nama'
+                        data: 'deskripsi'
                     },
                     {
-                        data: 'alamat'
-                    },
-                    {
-                        data: 'telepon'
+                        data: 'nominal'
                     },
                     {
                         data: 'aksi',
@@ -129,38 +109,33 @@
                         });
                 }
             });
-
-            $('[name=select_all]').on('click', function() {
-                $(':checkbox').prop('checked', this.checked);
-            });
         });
 
         // Fungsi untuk menampilkan modal dengan form kosong atau form yang sudah terisi.
         function addForm(url) {
             $('#modal-form').modal('show'); // Tampilkan modal.
-            $('#modal-form .modal-title').text('Tambah Member'); // Ganti judul modal.
+            $('#modal-form .modal-title').text('Tambah Pengeluaran'); // Ganti judul modal.
 
             $('#modal-form form')[0].reset(); // Reset form jika ada data lama.
             $('#modal-form form').attr('action', url); // Atur URL action form.
             $('#modal-form [name=_method]').val('post'); // Tentukan method untuk form (POST).
-            $('#modal-form [name=nama]').focus(); // Fokuskan ke input kategori.
+            $('#modal-form [name=deskripsi]').focus(); // Fokuskan ke input Deskripsi.
         }
 
         // Fungsi untuk menampilkan modal dengan form kosong atau form yang sudah terisi.
         function editForm(url) {
             $('#modal-form').modal('show'); // Tampilkan modal.
-            $('#modal-form .modal-title').text('Edit Kategori'); // Ganti judul modal.
+            $('#modal-form .modal-title').text('Edit Pengeluaran'); // Ganti judul modal.
 
             $('#modal-form form')[0].reset(); // Reset form jika ada data lama.
             $('#modal-form form').attr('action', url); // Atur URL action form.
             $('#modal-form [name=_method]').val('put'); // Tentukan method untuk form (PUT).
-            $('#modal-form [name=nama]').focus(); // Fokuskan ke input kategori.
+            $('#modal-form [name=deskripsi]').focus(); // Fokuskan ke input kategori.
 
             $.get(url)
                 .done((response) => {
-                    $('#modal-form [name=nama]').val(response.nama);
-                    $('#modal-form [name=telepon]').val(response.telepon);
-                    $('#modal-form [name=alamat]').val(response.alamat);
+                    $('#modal-form [name=deskripsi]').val(response.deskripsi);
+                    $('#modal-form [name=nominal]').val(response.nominal);
                 })
                 .fail((response) => {
                     // Jika gagal, tampilkan pesan error.
@@ -208,35 +183,6 @@
             }
         });
     }
-
-    function cetakMember(url) {
-            // Cek apakah minimal 3 data terpilih
-            if ($('input:checked').length < 1) {
-                Swal.fire(
-                    'Pilih Data!',
-                    'Pilih data yang akan dicetak!',
-                    'warning'
-                );
-                return;
-            } else {
-                Swal.fire({
-                    title: 'Apakah Anda yakin?',
-                    text: "Semua data yang dipilih akan dicetak kartu membernya!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Cetak',
-                    cancelButtonText: 'Batal',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Jika user konfirmasi, kirim form untuk mencetak barcode
-                        $('.form-member').attr('action', url)
-                            .attr('target', '_blank') // Form akan dibuka di tab baru
-                            .submit(); // Kirim form
-                    }
-                });
-            }
-        }
 
     </script>
 @endpush
