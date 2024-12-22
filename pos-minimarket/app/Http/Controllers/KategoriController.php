@@ -12,7 +12,6 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
         return view("kategori.index");
     }
 
@@ -36,7 +35,6 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $kategori = new Kategori();
         $kategori->nama_kategori = $request->nama_kategori;
 
@@ -50,7 +48,6 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
-        //
         $kategori = Kategori::find($id);
 
         return response()->json($kategori);
@@ -69,7 +66,6 @@ class KategoriController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $kategori = Kategori::find($id);
         $kategori->nama_kategori = $request->nama_kategori;
 
@@ -83,7 +79,6 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        //
         $kategori = Kategori::find($id);
         $kategori->delete();
 

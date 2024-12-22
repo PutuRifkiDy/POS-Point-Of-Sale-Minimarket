@@ -28,6 +28,9 @@ class PembelianController extends Controller
         ->addColumn('supplier', function($pembelian){
             return $pembelian->supplier->nama;
         })
+        ->editColumn('diskon', function($pembelian){
+            return $pembelian->diskon . " " . "%";
+        })
         ->addColumn('total_harga', function($pembelian){
             return 'Rp. '. format_uang($pembelian->total_harga).'';
         })
@@ -93,5 +96,24 @@ class PembelianController extends Controller
             return 'Rp. '.format_uang($detail->subtotal);
         })
         ->make(true);
+    }
+
+    public function destroy($id){
+        $pembelian = Pembelian::find($id);
+        $detail = PembelianDetail::where('id_pembelian', $pembelian->id_pembelian)->get();
+
+        foreach($detail as $item){
+            $produk = Produk::find($item->id_produk);
+            if($produk){
+                $produk->stok -= $item->jumlah;
+                $produk->update();
+            }
+
+            $item->delete();
+        }
+
+        $pembelian->delete();
+
+        return response(null, 204);
     }
 }

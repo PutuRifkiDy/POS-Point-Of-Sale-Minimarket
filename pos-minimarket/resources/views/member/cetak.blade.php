@@ -31,7 +31,7 @@
         }
         .logo img {
             position: absolute;
-            margin-top: -5pt;
+            margin-top: -20pt;
             width: 40px;
             height: 40px;
             right: 16pt;
@@ -78,10 +78,10 @@
                 @foreach($data as $item)
                     <td class="text-center" width="50%">
                         <div class="box">
-                            <img src="{{public_path('img/member.png')}}" alt="card" class="card">
+                            <img src="{{public_path($setting->path_kartu_member)}}" alt="card" class="card">
                             <div class="logo">
-                                <p>{{config('app.name')}}</p>
-                                {{-- <img src="{{public_path('img/logoToko.png')}}" alt="logo" class="logo"> --}}
+                                <p>{{$setting->nama_perusahaan}}</p>
+                                <img src="{{public_path($setting->path_logo)}}" alt="logo" class="logo">
                             </div>
                             <div class="nama">
                                 {{$item->nama}}
