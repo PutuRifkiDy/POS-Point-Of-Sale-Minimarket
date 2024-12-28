@@ -89,7 +89,7 @@
                                 <input type="hidden" name="total" id="total">
                                 <input type="hidden" name="total_item" id="total_item">
                                 <input type="hidden" name="bayar" id="bayar">
-                                <input type="hidden" name="id_member" id="id_member">
+                                <input type="hidden" name="id_member" id="id_member" value="{{$memberTerpilih->id_member}}">
 
                                 <div class="form-group row">
                                     <label for="totalrp" class="col-lg-2 control-label">Total</label>
@@ -102,7 +102,7 @@
                                     <label for="kode_member" class="col-lg-2 control-label">Member</label>
                                     <div class="col-lg-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="kode_member">
+                                            <input type="text" class="form-control" id="kode_member" value="{{$memberTerpilih->kode_member}}">
                                             <span class="input-group-btn">
                                                 <button onclick="tampilMember()" class="btn btn-info" type="button">
                                                     <i class="fa fa-arrow-right"></i>
@@ -114,7 +114,7 @@
                                 <div class="form-group row">
                                     <label for="diskon" class="col-lg-2 control-label">Diskon</label>
                                     <div class="col-lg-8">
-                                        <input type="number" name="diskon" id="diskon" class="form-control" value="0" readonly>
+                                        <input type="number" name="diskon" id="diskon" class="form-control" value="{{! empty($memberTerpilih->id_member) ? $diskon : 0}}" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -126,7 +126,7 @@
                                 <div class="form-group row">
                                     <label for="diterima" class="col-lg-2 control-label">Diterima</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="diterima" class="form-control" name="diterima" value="0">
+                                        <input type="number" id="diterima" class="form-control" name="diterima" value="{{$penjualan->diterima ?? 0}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -198,6 +198,9 @@
             })
             .on('draw.dt',function(){
                 loadForm($('#diskon').val());
+                setTimeout(() => {
+                    $('#diterima').trigger('input');
+                }, 300);
             });
 
             table2 = $('.table-produk').DataTable();
@@ -389,7 +392,7 @@
 
             $('#kembali').val('Rp.'+ response.kembalirp);
             if($('#diterima').val() != 0) {
-                $('.tampil-bayar').text('Bayar: Rp. '+ response.kembalirp)
+                $('.tampil-bayar').text('Kembali: Rp. '+ response.kembalirp)
                 $('.tampil-terbilang').text(response.kembali_terbilang);
             }
         })
