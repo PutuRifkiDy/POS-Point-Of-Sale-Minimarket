@@ -77,8 +77,14 @@
             </li>
             <li class="header">REPORT</li>
             <li>
-                <a href="#">
-                    <i class="fa fa-file-pdf-o"></i> <span>Laporan</span>
+                <a href="{{route('laporan_pengeluaran.index')}}">
+                    <i class="fa fa-file-pdf-o"></i> <span>Laporan Pengeluaran</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="{{route('laporan.index')}}">
+                    <i class="fa fa-file-pdf-o"></i> <span>Laporan Pendapatan Final</span>
 
                 </a>
             </li>

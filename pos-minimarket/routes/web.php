@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\KategoriController;
-use App\Http\Controllers\PembelianController;
-use App\Http\Controllers\PembelianDetailController;
-use App\Http\Controllers\PenjualanController;
-use App\Http\Controllers\PenjualanDetailController;
-use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\LaporanPengeluaranController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PembelianController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\PembelianDetailController;
+use App\Http\Controllers\PenjualanDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,5 +85,15 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
     Route::resource('/transaksi', PenjualanDetailController::class)
     ->except('show');
+
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/refresh', [LaporanController::class, 'refresh'])->name('laporan.refresh');
+    Route::get('/laporan/data/{awal}/{akhir}', [LaporanController::class, 'data'])->name('laporan.data');
+    Route::get('/laporan/pdf/{awal}/{akhir}', [LaporanController::class, 'exportPdf'])->name('laporan.export_pdf');
+
+    Route::get('/laporan_pengeluaran', [LaporanPengeluaranController::class, 'index'])->name('laporan_pengeluaran.index');
+    Route::get('/laporan_pengeluaran/refresh', [LaporanController::class, 'refresh'])->name('laporan_pengeluaran.refresh');
+    Route::get('/laporan_pengeluaran/data/{awal}/{akhir}', [LaporanPengeluaranController::class, 'data'])->name('laporan_pengeluaran.data');
+    Route::get('/laporan_pengeluaran/pdf/{awal}/{akhir}', [LaporanPengeluaranController::class, 'exportPdf'])->name('laporan_pengeluaran.export_pdf');
 
 });
