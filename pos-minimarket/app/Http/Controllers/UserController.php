@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -99,6 +100,39 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(null, 204);
+    }
 
+    public function profil(){
+        $profil = auth()->user();
+        return view('user.profil', compact('profil'));
+    }
+
+    public function updateProfil(Request $request){
+        $user = auth()->user();
+
+        $user->name = $request->name;
+        if($request->has('password') && $request->password != ""){
+            if(Hash::check($request->old_password, $user->password)){
+                if($request->password == $request->password_confirmation){
+                    $user->password = bcrypt($request->password);
+                } else {
+                    return response()->json('Konfirmasi Password Tidak Sesuai', 422);
+                }
+            } else {
+                return response()->json('Password Lama Tidak Sesuai', 422);
+            }
+        }
+
+        if($request->hasFile('foto')){
+            $file = $request->file('foto');
+            $nama = 'logo-' . date('Y-m-dHis') . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/img'), $nama);
+
+            $user->foto = "/img/$nama";
+        }
+
+        $user->update();
+
+        return response()->json($user, 200);
     }
 }

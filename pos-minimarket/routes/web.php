@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PembelianController;
@@ -40,6 +42,9 @@ Route::middleware([
 });
 
 Route::group(['middleware' => 'auth'], function (){
+
+    route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard.index');
+
     // route untuk kategori
     Route::get('/kategori/data', [KategoriController::class,'data'])->name('kategori.data');
     Route::resource('/kategori', KategoriController::class);
@@ -111,4 +116,11 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('/user/data', [UserController::class,'data'])->name('user.data');
     Route::resource('/user', UserController::class);
+
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::get('/setting/first', [SettingController::class, 'show'])->name('setting.show');
+    Route::post('/setting',[SettingController::class, 'update'])->name('setting.update');
+
+    Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
+    Route::post('/profil', [UserController::class, 'updateProfil'])->name('user.update_profil');
 });
