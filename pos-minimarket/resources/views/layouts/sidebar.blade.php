@@ -4,7 +4,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ asset(auth()->user()->foto) }}" class="img-circle" alt="User Image" style="width:50px; height:50px" >
+                <img src="{{ asset(auth()->user()->foto ?? '') }}" class="img-circle" alt="User Image" style="width:50px; height:50px" >
             </div>
             <div class="pull-left info">
                 <p>{{ auth()->user()->name }}</p>
@@ -14,10 +14,14 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li>
-                <a href="{{ route('dashboard.index') }}">
+                <a href="{{ route('dashboard') }}">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
+
+            @if (auth()->user()->level == 1)
+                
+            
             <li class="header">MASTER</li>
             <li>
                 <a href="{{ route('kategori.index') }}">
@@ -109,6 +113,20 @@
 
                 </a>
             </li>
+            @else
+            <li>
+                <a href="{{ route('transaksi.index') }}">
+                    <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Lama</span>
+
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('transaksi.baru') }}">
+                    <i class="fa fa-cart-plus"></i> <span>Transaksi Baru</span>
+
+                </a>
+            </li>
+            @endif
         </ul>
 
 

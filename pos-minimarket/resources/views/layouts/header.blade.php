@@ -18,14 +18,14 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="{{ asset('#') }}" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ asset(auth()->user()->foto ) }}" class="user-image"
+                        <img src="{{ asset(auth()->user()->foto ?? '') }}" class="user-image"
                             alt="User Image">
                         <span class="hidden-xs">{{auth()->user()->name}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{{ asset(auth()->user()->foto ) }}" class="img-circle"
+                            <img src="{{ asset(auth()->user()->foto ?? '') }}" class="img-circle"
                                 alt="User Image">
                             <p>
                                 {{auth()->user()->name}} - {{auth()->user()->email}}

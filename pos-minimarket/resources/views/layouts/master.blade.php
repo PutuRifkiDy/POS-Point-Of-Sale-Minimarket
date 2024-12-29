@@ -134,9 +134,8 @@
     <script src="{{asset('AdminLTE-2/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('AdminLTE-2/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
     
-    <script src="{{ asset('AdminLTE-2/bower_components/chart.js/Chart.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('AdminLTE-2/dist/js/pages/dashboard2.js') }}"></script>
+    {{-- <script src="{{ asset('AdminLTE-2/dist/js/pages/dashboard2.js') }}"></script> --}}
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('AdminLTE-2/dist/js/demo.js') }}"></script>
     <!-- Validator -->

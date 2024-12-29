@@ -47,7 +47,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->level = $request->level;
         $user->foto = '/img/profile.png';
         $user->save();
@@ -83,7 +83,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         if($request->has('password') && $request->password != ""){
-            $user->password = $request->password;
+            $user->password = bcrypt($request->password);
         }
         $user->level = $request->level;
         $user->save();
