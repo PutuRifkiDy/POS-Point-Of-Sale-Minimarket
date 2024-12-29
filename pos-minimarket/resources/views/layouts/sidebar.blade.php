@@ -4,11 +4,11 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ asset(auth()->user()->foto) }}" class="img-circle" alt="User Image">
+                <img src="{{ asset(auth()->user()->foto) }}" class="img-circle" alt="User Image" style="width:50px; height:50px" >
             </div>
             <div class="pull-left info">
                 <p>{{ auth()->user()->name }}</p>
-                <a href="{{ asset('#') }}"><i class="fa fa-circle text-success"></i> Online</a>
+                <p><i class="fa fa-circle text-success"></i> Online</p>
             </div>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
