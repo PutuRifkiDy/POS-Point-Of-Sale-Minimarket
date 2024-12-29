@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
@@ -107,4 +108,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/laporan_pembelian/refresh', [LaporanPembelianController::class, 'refresh'])->name('laporan_pembelian.refresh');
     Route::get('/laporan_pembelian/data/{awal}/{akhir}', [LaporanPembelianController::class, 'data'])->name('laporan_pembelian.data');
     Route::get('/laporan_pembelian/pdf/{awal}/{akhir}', [LaporanPembelianController::class, 'exportPdf'])->name('laporan_pembelian.export_pdf');
+
+    Route::get('/user/data', [UserController::class,'data'])->name('user.data');
+    Route::resource('/user', UserController::class);
 });
