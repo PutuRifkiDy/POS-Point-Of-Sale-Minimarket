@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Pengeluaran</title>
+    <title>Laporan Pembelian</title>
     <style>
         table td{
             /* font-family: Arial, Helvetica, sans-serif; */
@@ -42,8 +42,10 @@
             <tr>
                 <th width="5%">No</th>
                 <th>Tanggal</th>
-                <th>Deskripsi</th>
-                <th>Nominal</th>
+                <th>Nama Produk</th>
+                <th>Harga Jual</th>
+                <th>Jumlah</th>
+                <th>Subtotal</th>
             </tr>
         </thead>
         <tbody>

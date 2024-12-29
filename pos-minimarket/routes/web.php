@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\LaporanPengeluaranController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProdukController;
@@ -12,6 +11,9 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\PenjualanDetailController;
+use App\Http\Controllers\LaporanPembelianController;
+use App\Http\Controllers\LaporanPenjualanController;
+use App\Http\Controllers\LaporanPengeluaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,8 +94,17 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/laporan/pdf/{awal}/{akhir}', [LaporanController::class, 'exportPdf'])->name('laporan.export_pdf');
 
     Route::get('/laporan_pengeluaran', [LaporanPengeluaranController::class, 'index'])->name('laporan_pengeluaran.index');
-    Route::get('/laporan_pengeluaran/refresh', [LaporanController::class, 'refresh'])->name('laporan_pengeluaran.refresh');
+    Route::get('/laporan_pengeluaran/refresh', [LaporanPengeluaranController::class, 'refresh'])->name('laporan_pengeluaran.refresh');
     Route::get('/laporan_pengeluaran/data/{awal}/{akhir}', [LaporanPengeluaranController::class, 'data'])->name('laporan_pengeluaran.data');
     Route::get('/laporan_pengeluaran/pdf/{awal}/{akhir}', [LaporanPengeluaranController::class, 'exportPdf'])->name('laporan_pengeluaran.export_pdf');
-
+    
+    Route::get('/laporan_penjualan', [LaporanPenjualanController::class, 'index'])->name('laporan_penjualan.index');
+    Route::get('/laporan_penjualan/refresh', [LaporanPenjualanController::class, 'refresh'])->name('laporan_penjualan.refresh');
+    Route::get('/laporan_penjualan/data/{awal}/{akhir}', [LaporanPenjualanController::class, 'data'])->name('laporan_penjualan.data');
+    Route::get('/laporan_penjualan/pdf/{awal}/{akhir}', [LaporanPenjualanController::class, 'exportPdf'])->name('laporan_penjualan.export_pdf');
+    
+    Route::get('/laporan_pembelian', [LaporanPembelianController::class, 'index'])->name('laporan_pembelian.index');
+    Route::get('/laporan_pembelian/refresh', [LaporanPembelianController::class, 'refresh'])->name('laporan_pembelian.refresh');
+    Route::get('/laporan_pembelian/data/{awal}/{akhir}', [LaporanPembelianController::class, 'data'])->name('laporan_pembelian.data');
+    Route::get('/laporan_pembelian/pdf/{awal}/{akhir}', [LaporanPembelianController::class, 'exportPdf'])->name('laporan_pembelian.export_pdf');
 });

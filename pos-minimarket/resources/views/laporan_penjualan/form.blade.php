@@ -1,6 +1,6 @@
 <div class="modal fade" tabindex="-1" id="modal-form" aria-labelledby="modal-form" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="{{route('laporan_pengeluaran.refresh')}}" method="get" class="form-horizontal">
+        <form action="{{route('laporan_penjualan.refresh')}}" method="get" class="form-horizontal">
 
             <div class="modal-content">
                 <div class="modal-header">

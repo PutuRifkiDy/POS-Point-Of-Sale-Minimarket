@@ -59,17 +59,13 @@
                 ajax: {
                     url: '{{ route('laporan.data', [$tanggal_awal, $tanggal_akhir]) }}',
                 },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        searchable: false,
-                        sortable: false
-                    },
-                    {
-                        data: 'deskripsi'
-                    },
-                    {
-                        data: 'nominal'
-                    }
+                columns: [                
+                    {data: 'DT_RowIndex', searchable: false, sortable: false},
+                    {data: 'tanggal'},
+                    {data: 'penjualan'},
+                    {data: 'pembelian'},
+                    {data: 'pengeluaran'},
+                    {data: 'pendapatan'}
                 ],
                 dom: 'Brt',
                 bSort: false,

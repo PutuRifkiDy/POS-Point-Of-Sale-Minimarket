@@ -1,12 +1,12 @@
 @extends('layouts.master');
 
 @section('title')
-   Laporan Pengeluaran {{tanggal_indonesia($tanggal_awal, false)}} s/d {{tanggal_indonesia($tanggal_akhir, false)}}
+   Laporan Penjualan {{tanggal_indonesia($tanggal_awal, false)}} s/d {{tanggal_indonesia($tanggal_akhir, false)}}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Laporan Pengeluaran</li>
+    <li class="active">Laporan Penjualan</li>
 @endsection
 
 @push('css')
@@ -28,7 +28,7 @@
                         Ubah Periode
                     </button>
                     <a 
-                        href="{{route('laporan_pengeluaran.export_pdf', [$tanggal_awal, $tanggal_akhir])}}" target="_blank"
+                        href="{{route('laporan_penjualan.export_pdf', [$tanggal_awal, $tanggal_akhir])}}" target="_blank"
                         class="btn btn-info xs btn-flat flex gap-10 justify-center items-center">
                         <i class="fa fa-file-excel-o"></i>
                         Export PDF
@@ -39,8 +39,11 @@
                         <thead>
                             <th width="5%">No</th>
                             <th>Tanggal</th>
-                            <th>Deskripsi</th>
-                            <th>Nominal</th>
+                            <th>Nama Produk</th>
+                            <th>Harga Jual</th>
+                            <th>Jumlah</th>
+                            <th>Diskon</th>
+                            <th>Subtotal</th>
                         </thead>
                         <tbody>
 
@@ -51,7 +54,7 @@
             </div>
         </div>
     </div>
-    @includeIf('laporan_pengeluaran.form')
+    @includeIf('laporan_penjualan.form')
 @endsection
 @push('scripts')
     <script>
@@ -62,9 +65,10 @@
                 processing: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('laporan_pengeluaran.data', [$tanggal_awal, $tanggal_akhir]) }}',
+                    url: '{{ route('laporan_penjualan.data', [$tanggal_awal, $tanggal_akhir]) }}',
                     type: 'GET',
                 },
+                
                 columns: [{
                         data: 'DT_RowIndex',
                         searchable: false,
@@ -74,10 +78,19 @@
                         data: 'tanggal'
                     },
                     {
-                        data: 'deskripsi',
+                        data: 'nama_produk',
                     },
                     {
-                        data: 'pengeluaran'
+                        data: 'harga_jual'
+                    },
+                    {
+                        data: 'jumlah'
+                    },
+                    {
+                        data: 'diskon'
+                    },
+                    {
+                        data: 'subtotal'
                     },
                 ],
                 dom: 'Brt',

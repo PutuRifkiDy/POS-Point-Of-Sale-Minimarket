@@ -2,44 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengeluaran;
 use Illuminate\Http\Request;
+use App\Models\PenjualanDetail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 
-class LaporanPengeluaranController extends Controller
+class LaporanPenjualanController extends Controller
 {
     //
     public function index()
     {
         $tanggal_awal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
         $tanggal_akhir = date('Y-m-d');
-        return view('laporan_pengeluaran.index', compact('tanggal_awal', 'tanggal_akhir'));
+        return view('laporan_penjualan.index', compact('tanggal_awal', 'tanggal_akhir'));
     }
 
     public function getData($awal, $akhir)
     {
         $no = 1;
         $data = array();
-        $pengeluaran = 0;
+        $penjualan = 0;
 
-        $total_pengeluaran = 0;
+        $total_penjualan = 0;
 
         while(strtotime($awal) <= strtotime($akhir)){
             $tanggal = $awal;
             $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
+            
+            $penjualan_detail = PenjualanDetail::where('created_at', 'LIKE', "%$tanggal%")->get();
+            $penjualan = PenjualanDetail::where('created_at', 'LIKE', "%$tanggal%")->sum('subtotal');
 
-            $pengeluaran_detail = Pengeluaran::where('created_at', 'LIKE', "%$tanggal%")->get();
-            $pengeluaran = Pengeluaran::where('created_at', 'LIKE', "%$tanggal%")->sum('nominal');
+            $total_penjualan += $penjualan;
 
-            $total_pengeluaran += $pengeluaran;
-
-            foreach ($pengeluaran_detail     as $detail) {
+            foreach ($penjualan_detail as $detail) {
                 $row = [];
                 $row['DT_RowIndex'] = $no++;
                 $row['tanggal'] = tanggal_indonesia($tanggal, false);
-                $row['deskripsi'] = $detail->deskripsi;
-                $row['pengeluaran'] = format_uang($detail->nominal);
+                $row['nama_produk'] = $detail->produk->nama_produk;
+                $row['harga_jual'] = format_uang($detail->harga_jual);
+                $row['jumlah'] = format_uang($detail->jumlah);
+                $row['diskon'] = format_uang($detail->diskon);
+                $row['subtotal'] = format_uang($detail->subtotal);
                 $data[] = $row;
             }
         }
@@ -47,11 +50,12 @@ class LaporanPengeluaranController extends Controller
         $data[] = [
             'DT_RowIndex' => '',
             'tanggal' => '',
-            'deskripsi' => 'Total Pengeluaran',
-            'pengeluaran' => format_uang($total_pengeluaran),
-
+            'nama_produk' => '',
+            'harga_jual' => '',
+            'jumlah' => '',
+            'diskon' => 'Total Penjualan',
+            'subtotal' => format_uang($total_penjualan),
         ];
-
         return $data;
     }
 
@@ -67,14 +71,14 @@ class LaporanPengeluaranController extends Controller
         $tanggal_awal = $request->tanggal_awal;
         $tanggal_akhir = $request->tanggal_akhir;
 
-        return view('laporan_pengeluaran.index', compact('tanggal_awal', 'tanggal_akhir'));
+        return view('laporan_penjualan.index', compact('tanggal_awal', 'tanggal_akhir'));
     }
 
     public function exportPDF($awal, $akhir){
         $data = $this->getData($awal, $akhir);
-        $pdf = Pdf::loadView('laporan_pengeluaran.pdf', compact('awal', 'akhir', 'data'));
+        $pdf = Pdf::loadView('laporan_penjualan.pdf', compact('awal', 'akhir', 'data'));
         $pdf->setPaper('a4', 'potrait');
 
-        return $pdf->stream('Laporan-Pengeluaran-' . date('Y-m-d-his') . '.pdf');
+        return $pdf->stream('Laporan-Penjualan-' . date('Y-m-d-his') . '.pdf');
     }
 }

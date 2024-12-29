@@ -79,13 +79,21 @@
             <li>
                 <a href="{{route('laporan_pengeluaran.index')}}">
                     <i class="fa fa-file-pdf-o"></i> <span>Laporan Pengeluaran</span>
-
+                </a>
+            </li>
+            <li>
+                <a href="{{route('laporan_pembelian.index')}}">
+                    <i class="fa fa-file-pdf-o"></i> <span>Laporan Pembelian</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('laporan_penjualan.index')}}">
+                    <i class="fa fa-file-pdf-o"></i> <span>Laporan Penjualan</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('laporan.index')}}">
                     <i class="fa fa-file-pdf-o"></i> <span>Laporan Pendapatan Final</span>
-
                 </a>
             </li>
             <li class="header">SYSTEM</li>
