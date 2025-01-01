@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12 w-full">
+        <div class="col-md-12 tw-max-w-full">
             <div class="box">
                 <div class="box-header with-border">
                     <button onclick="addForm('{{ route('kategori.store') }}')"

@@ -23,7 +23,7 @@ class ProdukController extends Controller
         $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', '=', 'produk.id_kategori')
         ->select('produk.*', 'nama_kategori')
         ->get();
-        
+
         return datatables()
         ->of($produk)
         ->addIndexColumn()
@@ -108,7 +108,7 @@ class ProdukController extends Controller
         return response()->json(null, 204);
     }
 
-    public function deleteSelected(Request $request) 
+    public function deleteSelected(Request $request)
     {
         foreach ($request->id_produk as $id) {
            $produk = Produk::find($id);
@@ -132,5 +132,5 @@ class ProdukController extends Controller
         return $pdf->stream('produk.pdf');
 
     }
-    
+
 }

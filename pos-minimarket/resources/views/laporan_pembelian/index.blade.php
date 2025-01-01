@@ -68,7 +68,8 @@
                     type: 'GET',
                 },
                 
-                columns: [{
+                columns: [
+                    {
                         data: 'DT_RowIndex',
                         searchable: false,
                         sortable: false
@@ -87,7 +88,7 @@
                     },
                     {
                         data: 'subtotal'
-                    },
+                    }
                 ],
                 dom: 'Brt',
                 bSort: false,
