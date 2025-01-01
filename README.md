@@ -1,4 +1,4 @@
 # POS-Point-Of-Sale-Minimarket
-## Project ini menggunakan laravel, react, dan tailwindcss untuk styling.
+## Project ini menggunakan laravel 10, tailwind, bootstrap, css dan javascript.
 
-### Nama : Putu Rifki Dirkayuda
+
